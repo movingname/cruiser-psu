@@ -1,0 +1,6 @@
+* Usage
+copy liblazycruiser.so to the directory containing the target program, and run
+LD_PRELOAD=./liblazycruiser.so your-program.
+
+More options and controls, pls refer to the makefile.
+
