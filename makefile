@@ -44,52 +44,52 @@ lazy-cruiser-extra: LX LSX LD LX-Spec L-Apache
 
 eager-cruiser-extra: EX LSX ED EX-Spec E-Apache
 
-L: $(SRC) 
+L:
 	# -DNDEBUG: to disable all assertions (pls refer to assert.h).
 	$(CC) $(CFLAGS) $(LDFLAGS) -DNDEBUG -DDELAYED -o liblazycruiser.so $(SRC)
 
-E: $(SRC)
+E:
 	$(CC) $(CFLAGS) $(LDFLAGS) -DNDEBUG -o libeagercruiser.so $(SRC)
 
 # lazy-cruiser-extra
-LX: $(SRC)
+LX:
 	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DEXP -o liblazyexpcruiser.so $(SRC)
 
-LSX: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DSINGLE_EXP -o liblazysingleexpcruiser.so $(SRC)
+LSX:
+	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DEXP -DSINGLE_EXP -o liblazysingleexpcruiser.so $(SRC)
 
-LD: $(SRC)
+LD:
 	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DCRUISER_DEBUG -o liblazydebugcruiser.so $(SRC)
 
-LX-Spec: $(SRC)
+LX-Spec:
 	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DEXP -DSPEC -o liblazyexpcruiser-spec.so $(SRC)
 
-L-Apache: $(SRC)
+L-Apache:
 	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DAPACHE -o liblazycruiser-apache.so $(SRC)
 
 # eager-cruiser-extra
-EX: $(SRC)
+EX:
 	$(CC) $(CFLAGS) $(LDFLAGS) -DEXP -o libeagerexpcruiser.so $(SRC)
 
-ESX: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DSINGLE_EXP -o libeagersingleexpcruiser.so $(SRC)
+ESX:
+	$(CC) $(CFLAGS) $(LDFLAGS) -DEXP -DSINGLE_EXP -o libeagersingleexpcruiser.so $(SRC)
 
-ED: $(SRC)
+ED:
 	$(CC) $(CFLAGS) $(LDFLAGS) -DCRUISER_DEBUG -o libeagerdebugcruiser.so $(SRC)
 
-EX-Spec: $(SRC)
+EX-Spec:
 	$(CC) $(CFLAGS) $(LDFLAGS) -DEXP -DSPEC -o libeagerexpcruiser-spec.so $(SRC)
 
-E-Apache: $(SRC)
+E-Apache:
 	$(CC) $(CFLAGS) $(LDFLAGS) -DAPACHE -o libeagercruiser-apache.so $(SRC)
 
-$(SRC): utility.h common.h list.h monitor.h thread_record.h
+# $(SRC): utility.h common.h list.h monitor.h thread_record.h
 
 # simpleTest is a simple multi-threaded program allocating/deallocating buffers.
 # effectTest contains some heap errors, like overflows, duplicate-frees.
 # usage: LD_PRELOAD=./lib*cruiser.so simple.out
 #		 LD_PRELOAD=./lib*cruiser.so effectTest.out
-test: simpleTest.cpp effectTest.cpp
+test:
 	$(CC) -Wall -lpthread -o simpleTest.out simpleTest.cpp
 	$(CC) -Wall -ldl -o effectTest.out effectTest.cpp
 
