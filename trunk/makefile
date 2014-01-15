@@ -46,42 +46,42 @@ eager-cruiser-extra: EX LSX ED EX-Spec E-Apache
 
 L: $(SRC) 
 	# -DNDEBUG: to disable all assertions (pls refer to assert.h).
-	$(CC) $(CFLAGS) $(LDFLAGS) -DNDEBUG -DDELAYED -o liblazycruiser.so $(src)
+	$(CC) $(CFLAGS) $(LDFLAGS) -DNDEBUG -DDELAYED -o liblazycruiser.so $(SRC)
 
 E: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DNDEBUG -o libeagercruiser.so $(src)
+	$(CC) $(CFLAGS) $(LDFLAGS) -DNDEBUG -o libeagercruiser.so $(SRC)
 
 # lazy-cruiser-extra
 LX: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DEXP -o liblazyexpcruiser.so $(src)
+	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DEXP -o liblazyexpcruiser.so $(SRC)
 
 LSX: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DSINGLE_EXP -o liblazysingleexpcruiser.so $(src)
+	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DSINGLE_EXP -o liblazysingleexpcruiser.so $(SRC)
 
 LD: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DCRUISER_DEBUG -o liblazydebugcruiser.so $(src)
+	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DCRUISER_DEBUG -o liblazydebugcruiser.so $(SRC)
 
 LX-Spec: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DEXP -DSPEC -o liblazyexpcruiser-spec.so $(src)
+	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DEXP -DSPEC -o liblazyexpcruiser-spec.so $(SRC)
 
 L-Apache: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DAPACHE -o liblazycruiser-apache.so $(src)
+	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DAPACHE -o liblazycruiser-apache.so $(SRC)
 
 # eager-cruiser-extra
 EX: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DEXP -o libeagerexpcruiser.so $(src)
+	$(CC) $(CFLAGS) $(LDFLAGS) -DEXP -o libeagerexpcruiser.so $(SRC)
 
 ESX: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DSINGLE_EXP -o libeagersingleexpcruiser.so $(src)
+	$(CC) $(CFLAGS) $(LDFLAGS) -DSINGLE_EXP -o libeagersingleexpcruiser.so $(SRC)
 
 ED: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DCRUISER_DEBUG -o libeagerdebugcruiser.so $(src)
+	$(CC) $(CFLAGS) $(LDFLAGS) -DCRUISER_DEBUG -o libeagerdebugcruiser.so $(SRC)
 
 EX-Spec: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DEXP -DSPEC -o libeagerexpcruiser-spec.so $(src)
+	$(CC) $(CFLAGS) $(LDFLAGS) -DEXP -DSPEC -o libeagerexpcruiser-spec.so $(SRC)
 
 E-Apache: $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -DAPACHE -o libeagercruiser-apache.so $(src)
+	$(CC) $(CFLAGS) $(LDFLAGS) -DAPACHE -o libeagercruiser-apache.so $(SRC)
 
 $(SRC): utility.h common.h list.h monitor.h thread_record.h
 
@@ -94,4 +94,4 @@ test: simpleTest.cpp effectTest.cpp
 	$(CC) -Wall -ldl -o effectTest.out effectTest.cpp
 
 clean:
-	rm *.so *.out 
+	rm *.o *.so *.out 
