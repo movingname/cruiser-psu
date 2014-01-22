@@ -153,7 +153,6 @@ void __attribute__((constructor)) init(){
 	// otherwise, there will be segfault.
 #if defined(EXP) || defined(SINGLE_EXP)
 	FILE *fp = fopen("cruiser.log", "a");
-	fp = fopen("~/cruiser.log", "a");
 	if(!fp)
 		fp = stderr;
 #ifdef DELAYED
@@ -192,7 +191,7 @@ void __attribute__((constructor)) init(){
 void beforeExit(void){
 #ifdef EXP
 	unsigned endTime = getUsTime();
-	FILE *fp = fopen("~/cruiser.log", "a");
+	FILE *fp = fopen("cruiser.log", "a");
 	if (!fp)
 		fp = stderr;
 	fprintf(fp, "\nBefore exit program:%s (pid %lu, thread id %lu)\n",
@@ -439,7 +438,7 @@ static void free_wrapper(void* addr){
 	if(__builtin_expect(g_pid_copy != current_pid, 0)){
 		if(__sync_bool_compare_and_swap(&g_pid, g_pid_copy, current_pid)){
 #ifdef EXP
-			FILE *fp = fopen("~/cruiser.log", "a");
+			FILE *fp = fopen("cruiser.log", "a");
 			if (!fp)
 				fp = stderr;
 			fprintf(fp, "Process fork detected %s, parent %lu, child %lu\n",
