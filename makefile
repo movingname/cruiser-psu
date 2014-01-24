@@ -3,7 +3,7 @@ CC		= g++
 # "-march=native" means the compiler optimizes according to the host processsor.
 # "-march=xxx is also necessary for using __sync_compare_and_swap.
 CFLAGS	= -Wall -O2 -shared -fPIC -march=native 
-LDFLAGS	= -ldl -lpthread # "-ldl" is for dlsym().
+LDFLAGS	= -ldl -pthread # "-ldl" is for dlsym().
 SRC		= memory.cpp
 
 # L: lazy-cruiser; buffers are deallocated by cruiser; -DDELAYED is used.
@@ -46,42 +46,42 @@ eager-cruiser-extra: EX LSX ED EX-Spec E-Apache
 
 L:
 	# -DNDEBUG: to disable all assertions (pls refer to assert.h).
-	$(CC) $(CFLAGS) $(LDFLAGS) -DNDEBUG -DDELAYED -o liblazycruiser.so $(SRC)
+	$(CC) $(CFLAGS) -DNDEBUG -DDELAYED -o liblazycruiser.so $(SRC) $(LDFLAGS)
 
 E:
-	$(CC) $(CFLAGS) $(LDFLAGS) -DNDEBUG -o libeagercruiser.so $(SRC)
+	$(CC) $(CFLAGS) -DNDEBUG -o libeagercruiser.so $(SRC) $(LDFLAGS)
 
 # lazy-cruiser-extra
 LX:
-	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DEXP -o liblazyexpcruiser.so $(SRC)
+	$(CC) $(CFLAGS) -DDELAYED -DEXP -o liblazyexpcruiser.so $(SRC) $(LDFLAGS)
 
 LSX:
-	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DEXP -DSINGLE_EXP -o liblazysingleexpcruiser.so $(SRC)
+	$(CC) $(CFLAGS) -DDELAYED -DEXP -DSINGLE_EXP -o liblazysingleexpcruiser.so $(SRC) $(LDFLAGS)
 
 LD:
-	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DCRUISER_DEBUG -o liblazydebugcruiser.so $(SRC)
+	$(CC) $(CFLAGS) -DDELAYED -DCRUISER_DEBUG -o liblazydebugcruiser.so $(SRC) $(LDFLAGS)
 
 LX-Spec:
-	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DEXP -DSPEC -o liblazyexpcruiser-spec.so $(SRC)
+	$(CC) $(CFLAGS) -DDELAYED -DEXP -DSPEC -o liblazyexpcruiser-spec.so $(SRC) $(LDFLAGS)
 
 L-Apache:
-	$(CC) $(CFLAGS) $(LDFLAGS) -DDELAYED -DAPACHE -o liblazycruiser-apache.so $(SRC)
+	$(CC) $(CFLAGS) -DDELAYED -DAPACHE -o liblazycruiser-apache.so $(SRC) $(LDFLAGS) 
 
 # eager-cruiser-extra
 EX:
-	$(CC) $(CFLAGS) $(LDFLAGS) -DEXP -o libeagerexpcruiser.so $(SRC)
+	$(CC) $(CFLAGS) -DEXP -o libeagerexpcruiser.so $(SRC) $(LDFLAGS)
 
 ESX:
-	$(CC) $(CFLAGS) $(LDFLAGS) -DEXP -DSINGLE_EXP -o libeagersingleexpcruiser.so $(SRC)
+	$(CC) $(CFLAGS) -DEXP -DSINGLE_EXP -o libeagersingleexpcruiser.so $(SRC) $(LDFLAGS)
 
 ED:
-	$(CC) $(CFLAGS) $(LDFLAGS) -DCRUISER_DEBUG -o libeagerdebugcruiser.so $(SRC)
+	$(CC) $(CFLAGS) -DCRUISER_DEBUG -o libeagerdebugcruiser.so $(SRC) $(LDFLAGS)
 
 EX-Spec:
-	$(CC) $(CFLAGS) $(LDFLAGS) -DEXP -DSPEC -o libeagerexpcruiser-spec.so $(SRC)
+	$(CC) $(CFLAGS) -DEXP -DSPEC -o libeagerexpcruiser-spec.so $(SRC) $(LDFLAGS)
 
 E-Apache:
-	$(CC) $(CFLAGS) $(LDFLAGS) -DAPACHE -o libeagercruiser-apache.so $(SRC)
+	$(CC) $(CFLAGS) -DAPACHE -o libeagercruiser-apache.so $(SRC) $(LDFLAGS)
 
 # $(SRC): utility.h common.h list.h monitor.h thread_record.h
 
@@ -90,8 +90,8 @@ E-Apache:
 # usage: LD_PRELOAD=./lib*cruiser.so simple.out
 #		 LD_PRELOAD=./lib*cruiser.so effectTest.out
 test:
-	$(CC) -Wall -lpthread -o simpleTest.out simpleTest.cpp
-	$(CC) -Wall -ldl -o effectTest.out effectTest.cpp
+	$(CC) -Wall -o simpleTest.out simpleTest.cpp -pthread
+	$(CC) -Wall -o effectTest.out effectTest.cpp -ldl
 
 clean:
 	rm *.o *.so *.out 
